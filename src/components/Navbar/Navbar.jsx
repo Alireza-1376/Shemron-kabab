@@ -7,7 +7,7 @@ const Navbar = () => {
     const dispatch = useDispatch();
 
     return (
-        <div className="flex justify-between items-center p-4 relative">
+        <div className="flex justify-between items-center p-4 relative md:px-8">
             <div className="flex items-center gap-2">
                 <div onClick={()=>{dispatch(showMenu("open"))}} className="cursor-pointer md:hidden">
                     <HiBars3 size={30} />

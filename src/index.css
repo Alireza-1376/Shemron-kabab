@@ -3,6 +3,56 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+body {
   font-family: "Mikhak";
+}
+
+#MainPage span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  overflow: hidden;
+}
+#MainPage > div > div::-webkit-scrollbar{
+  display: none;
+}
+
+#MainPage a {
+  display: block;
+  text-align: center;
+  width: 100%;
+  padding: 8px;
+}
+
+#MainPage a:hover {
+  color: rgb(189, 170, 0);
+}
+
+#MainPage a.active:hover {
+  color: black;
+}
+
+#MainPage .active {
+  background-color: rgb(234 179 8 / var(--tw-bg-opacity, 1));
+  color: black;
+  display: block;
+  transition: all;
+  transition-duration: 200ms;
+}
+
+
+@media screen and (min-width:1024px) {
+  #MainPage .active {
+    background-color: white;
+    color: black;
+  }
+
+  #MainPage a {
+    display: block;
+    text-align: center;
+    width: 100%;
+    padding: 8px;
+  }
+
 }

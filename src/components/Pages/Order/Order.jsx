@@ -1,7 +1,9 @@
+import Scroll from "./ScrollSpy";
+
 const Order = () => {
     return (
         <div>
-            منو سفارش
+            <Scroll />
         </div>
     );
 }

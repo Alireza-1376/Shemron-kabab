@@ -6,7 +6,9 @@
 body {
   font-family: "Mikhak";
 }
-
+.nav-active{
+  border-bottom: 2px solid yellow;
+}
 #MainPage span {
   display: flex;
   justify-content: center;
@@ -14,7 +16,8 @@ body {
   height: 40px;
   overflow: hidden;
 }
-#MainPage > div > div::-webkit-scrollbar{
+
+#MainPage>div>div::-webkit-scrollbar {
   display: none;
 }
 
@@ -45,14 +48,22 @@ body {
 @media screen and (min-width:1024px) {
   #MainPage .active {
     background-color: white;
-    color: black;
+    color: rgb(189, 170, 0);
   }
 
-  #MainPage a {
+  #MainPage a.active:hover {
+    color: rgb(189, 170, 0);
+  }
+   #MainPage a:hover {
+    color: black;
+  }
+  #MainPage a{
     display: block;
     text-align: center;
     width: 100%;
     padding: 8px;
+    color: black;
   }
+
 
 }

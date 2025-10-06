@@ -2,7 +2,7 @@ import Scroll from "./ScrollSpy";
 
 const Order = () => {
     return (
-        <div>
+        <div>   
             <Scroll />
         </div>
     );

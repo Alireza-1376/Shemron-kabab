@@ -1,26 +1,22 @@
-import { NavLink, Route, Routes, useLocation } from "react-router-dom";
 import Order from "./Order/Order";
 import Info from "./Info";
+import { useState } from "react";
 
 const MainPage = () => {
-    const location = useLocation();
-    // console.log(location.pathname)
+    const [ menu , setMenu ]=useState(1);
     return (
         <div id="MainPage" className="grid grid-cols-1 lg:grid-cols-12">
             <div className="lg:col-span-8 p-4">
                 <div className="w-full lg:flex lg:gap-4 bg-gray-300 lg:bg-white rounded-full lg:overflow-x-auto h-10 lg:h-14 flex lg:border-b lg:rounded-none">
-                    <span className=" w-full lg:w-auto rounded-full">
-                        <NavLink to="order" className="lg:bg-white">منو سفارش</NavLink>
+                    <span onClick={()=>{setMenu(1)}} className=" w-full lg:w-auto rounded-full cursor-pointer">
+                        <a className={`${menu==1 ? "active" : ""} lg:bg-white`}>منو سفارش</a>
                     </span>
-                    <span className="w-full lg:w-auto rounded-full">
-                        <NavLink to="info" className="lg:bg-white">اطلاعات رستوران</NavLink>
+                    <span onClick={()=>{setMenu(2)}} className="w-full lg:w-auto rounded-full cursor-pointer">
+                        <a className={`${menu==2 ? "active" : ""} lg:bg-white`}>اطلاعات رستوران</a>
                     </span>
                 </div>
                 <div>
-                    <Routes>
-                        <Route path="/order" element={<Order />} />
-                        <Route path="/info" element={<Info />} />
-                    </Routes>
+                    {menu==1 ? <Order /> : <Info /> }
                 </div>
             </div>
             <div className="bg-red-100 lg:col-span-4">
@@ -31,3 +27,10 @@ const MainPage = () => {
 }
 
 export default MainPage;
+
+
+
+
+
+
+

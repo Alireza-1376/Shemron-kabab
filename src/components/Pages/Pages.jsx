@@ -1,6 +1,7 @@
 import Order from "./Order/Order";
 import Info from "./Info";
 import { useState } from "react";
+import Cart from "../Cart/Cart";
 
 const MainPage = () => {
     const [ menu , setMenu ]=useState(1);
@@ -19,8 +20,8 @@ const MainPage = () => {
                     {menu==1 ? <Order /> : <Info /> }
                 </div>
             </div>
-            <div className="bg-red-100 lg:col-span-4">
-                cart
+            <div className="lg:col-span-4">
+                <Cart />
             </div>
         </div>
     );

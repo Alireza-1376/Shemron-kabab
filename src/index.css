@@ -5,6 +5,7 @@
 
 body {
   font-family: "Mikhak";
+  overflow-x: hidden;
 }
 .nav-active{
   border-bottom: 4px solid rgb(189, 170, 0);

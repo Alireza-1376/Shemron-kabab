@@ -1,7 +1,12 @@
+import { useContext } from "react";
 import { GoShareAndroid } from "react-icons/go";
 import { HiOutlinePlus } from "react-icons/hi2";
-const Kabab = ({ kabab }) => {
-  
+import { CartContext } from "../../context/CartContext";
+
+
+const Kabab = ({ kabab  }) => {
+    const {cart , setCart} = useContext(CartContext);
+    
     return (
         <div>
             <div className="flex justify-start items-center gap-4">
@@ -14,7 +19,7 @@ const Kabab = ({ kabab }) => {
                 {kabab.map((item) => {
                     
                     return (
-                        <div className="border shadow">
+                        <div key={item.id} className="border shadow">
                             <div>
                                 <img className="object-cover w-full" src={`${item.imageUrl}`} alt="" />
                             </div>
@@ -25,7 +30,7 @@ const Kabab = ({ kabab }) => {
                                     <p>{item.price} تومان</p>
                                 </div>
                                 <div>
-                                    <button className="border border-yellow-500 p-1.5 rounded-md text-xl hover:bg-yellow-500 transition-all duration-100">
+                                    <button onClick={()=>{setCart((prev)=>[...prev , item])}} className="border border-yellow-500 p-1.5 rounded-md text-xl hover:bg-yellow-500 transition-all duration-100">
                                         <HiOutlinePlus />
                                     </button>
                                 </div>

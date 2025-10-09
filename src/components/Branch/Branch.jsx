@@ -8,9 +8,9 @@ const Branch = () => {
     const dispatch = useDispatch()
     
     return (
-        <div>
-            <div className="bg-[url('/images/branch.jpg')] w-screen h-64 md:h-80 bg-center bg-cover bg-no-repeat bg-black">
-                <div className="w-full h-full bg-black/40 text-white flex flex-col md:items-start items-center gap-3 pr-8">
+        <div >
+            <div className=" bg-[url('/images/branch.jpg')] w-screen h-64 md:h-80 bg-center bg-cover bg-no-repeat bg-black">
+                <div className="w-full h-full bg-black/40 text-white flex flex-col md:items-start items-center gap-3 md:pr-8">
                     <div className="flex items-center gap-2 mt-10 md:mt-16">
                         <h1 className="text-3xl font-bold">تجریش</h1>
                         <span className="bg-yellow-500 text-black rounded-md px-4 py-1.5">تا % 10 تخفیف</span>

@@ -74,7 +74,7 @@ const kabab = [
 ]
 const rice = [
     {
-        id: 1,
+        id: 10,
         imageUrl: "/images/rice/1.jpg",
         title: "چلوکره",
         description: "",
@@ -83,56 +83,56 @@ const rice = [
 ]
 const kababrice = [
     {
-        id: 1,
+        id: 11,
         imageUrl: "/images/kababrice/1.jpg",
         title: "کباب وزیری",
         description: "یک سیخ کباب لقمه 250 گرمی و یک سخ جوجه فیله 500 گرمی به همراه نان داغ گوجه فرنگی ریحان تازه پیاز سس مخصوص",
         price: "832500"
     },
     {
-        id: 2,
+        id: 12,
         imageUrl: "/images/kababrice/2.jpg",
         title: "کباب امیری",
         description: "یک سیخ جوجه فیله 500 گرمی و یک سیخ شیشلیگ 500 گرمی به همراه نان داغ گوجه فرنگی ریحان تازه پیاز سس مخصوص",
         price: "1890000"
     },
     {
-        id: 3,
+        id: 13,
         imageUrl: "/images/kababrice/3.jpg",
         title: "کباب درباری",
         description: "یک سیخ جوجه کامل با استخوان یک سیخ راسته بره 400 گرمی به همراه نان داغ گوجه فرنگی ریحان تازه پیاز سس مخصوص",
         price: "1890000"
     },
     {
-        id: 4,
+        id: 14,
         imageUrl: "/images/kababrice/4.jpg",
         title: "کباب مظفری",
         description: "یک سیخ لقمه 250 گرم یک سیخ شیشلیگ 500 گرمی به همراه نان داغ گوجه فرنگی ریحان تازه پیاز سس مخصوص",
         price: "1687500"
     },
     {
-        id: 5,
+        id: 15,
         imageUrl: "/images/kababrice/5.jpg",
         title: "کباب شاهی",
         description: "یک سیخ شیشلیگ 500 گرمی و یک سیخ راسته بره 400 گرمی به همراه نان داغ گوجه فرنگی ریحان تازه پیاز سس مخصوص",
         price: "2745000"
     },
     {
-        id: 6,
+        id: 16,
         imageUrl: "/images/kababrice/6.jpg",
         title: "کباب سالاری",
         description: "یک سیخ لقمه 250 گرمی یک سیخ جوجه ران 500 گرمی به همراه نان داغ گوجه فرنگی ریحان تازه پیاز سس مخصوص",
         price: "832500"
     },
     {
-        id: 7,
+        id: 17,
         imageUrl: "/images/kababrice/7.jpg",
         title: "کباب سلطانی",
         description: "یک سیخ لقمه 250 گرمی و یک سیخ کباب بره 400 گرمی به همراه نان داغ گوجه فرنگی ریحان تازه پیاز سس مخصوص",
         price: "1687500"
     },
     {
-        id: 8,
+        id: 18,
         imageUrl: "/images/kababrice/8.jpg",
         title: "کباب شکاری",
         description: "یک سیخ لقمه 250 گرمی یک سیخ جوجه کامل با استخوان به همراه نان داغ گوجه فرنگی ریحان تازه پیاز سس مخصوص",
@@ -141,42 +141,42 @@ const kababrice = [
 ]
 const salad = [
     {
-        id: 1,
+        id: 19,
         imageUrl: "/images/salad/1.jpg",
         title: "بورانی اسفناج",
         description: "",
         price: "110000"
     },
     {
-        id: 2,
+        id: 20,
         imageUrl: "/images/salad/2.jpg",
         title: "زیتون",
         description: "",
         price: "200000"
     },
     {
-        id: 3,
+        id: 21,
         imageUrl: "/images/salad/3.jpg",
         title: "ماست موسیر",
         description: "",
         price: "110000"
     },
     {
-        id: 4,
+        id: 22,
         imageUrl: "/images/salad/4.jpg",
         title: "بورانی بادمجان",
         description: "",
         price: "110000"
     },
     {
-        id: 5,
+        id: 23,
         imageUrl: "/images/salad/5.jpg",
         title: "ماست شوید",
         description: "",
         price: "110000"
     },
     {
-        id: 6,
+        id: 24,
         imageUrl: "/images/salad/6.jpg",
         title: "ماست خیار",
         description: "",
@@ -185,35 +185,35 @@ const salad = [
 ]
 const beverage = [
     {
-        id: 1,
+        id: 25,
         imageUrl: "/images/beverage/1.jpg",
         title: "باربیکن ساده",
         description: "",
         price: "47000"
     },
     {
-        id: 2,
+        id: 26,
         imageUrl: "/images/beverage/2.jpg",
         title: "آب معدنی",
         description: "",
         price: "9000"
     },
     {
-        id: 3,
+        id: 27,
         imageUrl: "/images/beverage/3.jpg",
         title: "دوغ محلی زالی",
         description: "",
         price: "40000"
     },
     {
-        id: 4,
+        id: 28,
         imageUrl: "/images/beverage/4.jpg",
         title: "نوشابه قوطی",
         description: "",
         price: "47000"
     },
     {
-        id: 5,
+        id: 29,
         imageUrl: "/images/beverage/5.jpg",
         title: "هی دی قوطی",
         description: "",

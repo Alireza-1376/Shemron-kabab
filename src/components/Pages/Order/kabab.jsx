@@ -1,28 +1,35 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GoShareAndroid } from "react-icons/go";
 import { HiOutlineMinus, HiOutlinePlus } from "react-icons/hi2";
 import { CartContext } from "../../context/CartContext";
+import FoodModal from "../../Modal/FoodModal";
+import { useDispatch, useSelector } from "react-redux";
+import { foodReducer } from "../../../redux/FoodModal/FoodModal";
 
 
-const Kabab = ({ kabab }) => {
-    const { cart, setCart , uniqCartItems, setUniqCartItems} = useContext(CartContext);
-    let newCart =JSON.parse(localStorage.getItem("cartItems")) || []
-    
-    function handleDeleteItem(id){
-        const findItem = newCart.findIndex((item)=>{
-            return item.id==id
+const Kabab = ({ kabab, discount }) => {
+    const { cart, setCart } = useContext(CartContext);
+    const [showDesc, setShowDesc] = useState(null);
+    const [selectItem , setSelectItem] = useState(null);
+    const { foodModal } = useSelector(state => state.foodModal);
+    const dispatch = useDispatch();
+    let newCart = JSON.parse(localStorage.getItem("cartItems")) || []
+
+    function handleDeleteItem(id) {
+        const findItem = newCart.findIndex((item) => {
+            return item.id == id
         });
-        newCart.splice(findItem , 1);
-        localStorage.setItem("cartItems" , JSON.stringify(newCart));
+        newCart.splice(findItem, 1);
+        localStorage.setItem("cartItems", JSON.stringify(newCart));
         setCart(newCart);
     }
 
-    function addToCart(item){
+    function addToCart(item) {
         setCart((prev) => [...prev, item])
-        const getCartItems =JSON.parse(localStorage.getItem("cartItems")) || [] ;
-        localStorage.setItem("cartItems" , JSON.stringify([...getCartItems , item]));
+        const getCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+        localStorage.setItem("cartItems", JSON.stringify([...getCartItems, item]));
     }
-  
+
 
     return (
         <div>
@@ -37,40 +44,55 @@ const Kabab = ({ kabab }) => {
                     const id = cart.filter((i) => {
                         return i.id == item.id;
                     })
-                    
+
+
                     return (
-                        <div key={item.id} className="border shadow">
-                            <div>
-                                <img className="object-cover w-full" src={`${item.imageUrl}`} alt="" />
-                            </div>
-                            <div className="flex justify-between items-end p-4">
-                                <div>
-                                    <p className="font-bold">{item.title}</p>
-                                    <p className="line-through text-gray-500 text-sm">900.000 تومان</p>
-                                    <p>{item.price} تومان</p>
+                        <div key={item.id}>
+                            <div onClick={() => { dispatch(foodReducer(true)) ;setSelectItem(item)}} onMouseLeave={() => { setShowDesc(null) }} onMouseEnter={() => { setShowDesc(item.id) }} className="border shadow">
+                                <div className="relative">
+                                    <img className="object-cover w-full" src={`${item.imageUrl}`} alt="" />
+                                    {item.description && <div className={`${showDesc == item.id ? "bg-white/90" : ""} z-10 transition-all duration-200 hidden md:flex absolute top-0 bottom-0 right-0 left-0  items-center p-4`}>
+                                        <p className={`${showDesc == item.id ? " " : "translate-y-40 opacity-0"} transition-all duration-200`}>{item.description}</p>
+                                    </div>}
+                                    <p className="absolute flex justify-center items-center top-4 left-4 bg-yellow-500 h-8 w-8 rounded-md text-sm p-0">% {discount}</p>
                                 </div>
-                                <div>
-                                    {id.length > 0 ?
-                                        <div className="flex items-center gap-2">
-                                            <button onClick={() => { handleDeleteItem(item.id) }} className="border border-yellow-500 p-1.5 rounded-md text-xl bg-yellow-500 transition-all duration-100">
-                                                <HiOutlineMinus />
-                                            </button>
-                                            <span>{id.length}</span>
-                                            <button onClick={() => {addToCart(item)}} className="border border-yellow-500 p-1.5 rounded-md text-xl bg-yellow-500 transition-all duration-100">
+                                <div className="flex justify-between items-end p-4">
+                                    <div>
+                                        <p className="font-bold">{item.title}</p>
+                                        <p className="text-xs md:hidden">{item.description}</p>
+                                        <p className="line-through text-gray-500 text-sm">{item.price} تومان</p>
+                                        <p>{(item.price) * (1 - discount / 100)} تومان</p>
+                                    </div>
+                                    <div>
+                                        {id.length > 0 ?
+                                            <div className="flex items-center gap-2">
+                                                <button onClick={(e) => { handleDeleteItem(item.id) ;e.stopPropagation() }} className="border border-yellow-500 p-1.5 rounded-md text-xl bg-yellow-500 transition-all duration-100">
+                                                    <HiOutlineMinus />
+                                                </button>
+                                                <span>{id.length}</span>
+                                                <button onClick={(e) => { addToCart(item) ; e.stopPropagation() }} className="border border-yellow-500 p-1.5 rounded-md text-xl bg-yellow-500 transition-all duration-100">
+                                                    <HiOutlinePlus />
+                                                </button>
+                                            </div>
+                                            :
+                                            <button onClick={(e) => { addToCart(item) ; e.stopPropagation()}} className="border border-yellow-500 p-1.5 rounded-md text-xl hover:bg-yellow-500 transition-all duration-100">
                                                 <HiOutlinePlus />
                                             </button>
-                                        </div>
-                                        :
-                                        <button onClick={() => {addToCart(item)}} className="border border-yellow-500 p-1.5 rounded-md text-xl hover:bg-yellow-500 transition-all duration-100">
-                                            <HiOutlinePlus />
-                                        </button>
-                                    }
+                                        }
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
                     )
                 })}
             </div>
+            {foodModal &&
+                <div>
+                    <FoodModal handleDeleteItem={handleDeleteItem} addToCart={addToCart} selectItem={selectItem} discount={discount}/>
+                    <div onClick={() => { dispatch(foodReducer(false)) }} className="bg-black/50 top-0 bottom-0 right-0 left-0 z-40 fixed"></div>
+                </div>
+            }
         </div>
     );
 }

@@ -41,7 +41,6 @@ const Beverage = ({ beverage }) => {
                             <div className="flex justify-between items-end p-4">
                                 <div>
                                     <p className="font-bold mb-2">{item.title}</p>
-                                    <p className="line-through text-gray-500 text-sm">900.000 تومان</p>
                                     <p>{item.price} تومان</p>
                                 </div>
                                 <div>

@@ -16,8 +16,8 @@ const Navbar = () => {
                     <img className="w-full" src="/images/Logo.png" alt="" />
                 </div>
             </div>
-            {menu=="open" && <div onClick={()=>{dispatch(showMenu("close"))}} className="bg-black/50 z-10 absolute h-screen top-0 bottom-0 right-0 left-0"></div>}
-            <div className={`${menu=="open" ? "w-60" : "w-0 md:w-full md:opacity-100 translate-x-36 md:translate-x-0"} transition-all duration-200 p-4 md:p-0 bg-yellow-200 md:bg-white z-20 absolute top-0 bottom-0 h-screen md:h-auto right-0 md:static block md:pl-8`}>
+            {menu=="open" && <div onClick={()=>{dispatch(showMenu("close"))}} className="bg-black/50 z-30 absolute h-screen top-0 bottom-0 right-0 left-0"></div>}
+            <div className={`${menu=="open" ? "w-60" : "w-0 md:w-full md:opacity-100 translate-x-36 md:translate-x-0"} transition-all duration-200 p-4 md:p-0 bg-yellow-200 md:bg-white z-40 absolute top-0 bottom-0 h-screen md:h-auto right-0 md:static block md:pl-8`}>
                 <ul className="flex flex-col md:flex-row  md:justify-end items-start text-nowrap gap-2">
                     <li onClick={()=>{dispatch(showMenu("close"))}} className="md:hidden mb-6 cursor-pointer">
                         <TfiClose size={24}/>

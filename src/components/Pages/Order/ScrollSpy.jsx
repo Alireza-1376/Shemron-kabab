@@ -6,6 +6,7 @@ import KababRice from "./KababRice";
 import Salad from "./Salad";
 import Beverage from "./Beverage";
 
+const discount = 10 ;
 
 const kabab = [
     {
@@ -61,14 +62,14 @@ const kabab = [
         id: 8,
         imageUrl: "/images/kabab/8.jpg",
         title: "گوجه اضافه",
-        description: "",
+        description: null,
         price: "50000"
     },
     {
         id: 9,
         imageUrl: "/images/kabab/9.jpg",
         title: "فلفل کبابی",
-        description: "",
+        description: null,
         price: "50000"
     },
 ]
@@ -77,7 +78,7 @@ const rice = [
         id: 10,
         imageUrl: "/images/rice/1.jpg",
         title: "چلوکره",
-        description: "",
+        description: null,
         price: "300000"
     },
 ]
@@ -121,7 +122,7 @@ const kababrice = [
         id: 16,
         imageUrl: "/images/kababrice/6.jpg",
         title: "کباب سالاری",
-        description: "یک سیخ لقمه 250 گرمی یک سیخ جوجه ران 500 گرمی به همراه نان داغ گوجه فرنگی ریحان تازه پیاز سس مخصوص",
+        description: "یک سیخ لقمه 250 گرمی یک سیخ جوجه ران 500 گرمی به همراه نان داغ گوجه فرنگی ریحان تازه پیاز سس مخصوص(جوجه 60 سانتی لقمه 45 سانتی)",
         price: "832500"
     },
     {
@@ -235,7 +236,7 @@ const Scroll = () => {
     return (
         <div>
             <ScrollSpy activeClass="nav-active">
-                <nav className="sticky top-0 bg-white">
+                <nav className="sticky z-20 top-0 bg-white">
                     <ul className="flex gap-4 md:gap-12 pt-4 border-b overflow-auto pb-2 md:pb-0">
                         <li onClick={() => { scrollTo("target-1") }} className="flex w-20 flex-col items-center cursor-pointer">
                             <img className="w-8 md:w-14" src="/images/menu/icon-kebab.png" alt="" />
@@ -263,19 +264,19 @@ const Scroll = () => {
             <SearchItem />
             <div>
                 <section className="scroll-mt-[110px] md:scroll-mt-[116px]" id="target-1">
-                    <Kabab kabab={kabab} />
+                    <Kabab kabab={kabab} discount={discount}/>
                 </section>
                 <section className="scroll-mt-24 md:scroll-mt-28" id="target-2">
-                    <Rice rice={rice} />
+                    <Rice rice={rice} discount={discount}/>
                 </section>
                 <section className="scroll-mt-24 md:scroll-mt-28" id="target-3">
-                    <KababRice kababrice={kababrice} />
+                    <KababRice kababrice={kababrice} discount={discount}/>
                 </section>
                 <section className=" scroll-mt-24 md:scroll-mt-28" id="target-4">
-                    <Salad salad={salad} />
+                    <Salad salad={salad} discount={discount}/>
                 </section>
                 <section className="scroll-mt-24 md:scroll-mt-28 " id="target-5">
-                    <Beverage beverage={beverage} />
+                    <Beverage beverage={beverage} discount={discount}/>
                 </section>
             </div>
         </div>

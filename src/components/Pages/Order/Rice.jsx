@@ -2,11 +2,18 @@
 import { GoShareAndroid } from 'react-icons/go';
 import { HiOutlineMinus, HiOutlinePlus } from 'react-icons/hi2';
 import { CartContext } from '../../context/CartContext';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
+import FoodModal from '../../Modal/FoodModal';
+import { foodReducer } from '../../../redux/FoodModal/FoodModal';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const Rice = ({ rice }) => {
     const { cart, setCart } = useContext(CartContext);
+    const { foodModal } = useSelector(state => state.foodModal);
+    const dispatch = useDispatch();
+    const [selectItem , setSelectItem] = useState(null);
+    
     function addToCart(item) {
         setCart((prev) => [...prev, item])
         const getCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
@@ -31,11 +38,12 @@ const Rice = ({ rice }) => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-4">
                 {rice.map((item) => {
+                    
                     const id = cart.filter((i) => {
                         return i.id == item.id;
                     })
                     return (
-                        <div key={item.id} className="border shadow">
+                        <div onClick={()=>{dispatch(foodReducer(true)) ; setSelectItem(item)}} key={item.id} className="border shadow">
                             <div>
                                 <img className="object-cover w-full" src={`${item.imageUrl}`} alt="" />
                             </div>
@@ -47,16 +55,16 @@ const Rice = ({ rice }) => {
                                 <div>
                                     {id.length > 0 ?
                                         <div className="flex items-center gap-2">
-                                            <button onClick={() => { handleDeleteItem(item.id) }} className="border border-yellow-500 p-1.5 rounded-md text-xl bg-yellow-500 transition-all duration-100">
+                                            <button onClick={(e) => { handleDeleteItem(item.id) ; e.stopPropagation() }} className="border border-yellow-500 p-1.5 rounded-md text-xl bg-yellow-500 transition-all duration-100">
                                                 <HiOutlineMinus />
                                             </button>
                                             <span>{id.length}</span>
-                                            <button onClick={() => { addToCart(item) }} className="border border-yellow-500 p-1.5 rounded-md text-xl bg-yellow-500 transition-all duration-100">
+                                            <button onClick={(e) => { addToCart(item) ;e.stopPropagation() }} className="border border-yellow-500 p-1.5 rounded-md text-xl bg-yellow-500 transition-all duration-100">
                                                 <HiOutlinePlus />
                                             </button>
                                         </div>
                                         :
-                                        <button onClick={() => { addToCart(item) }} className="border border-yellow-500 p-1.5 rounded-md text-xl hover:bg-yellow-500 transition-all duration-100">
+                                        <button onClick={(e) => { addToCart(item) ;e.stopPropagation() }} className="border border-yellow-500 p-1.5 rounded-md text-xl hover:bg-yellow-500 transition-all duration-100">
                                             <HiOutlinePlus />
                                         </button>
                                     }
@@ -66,6 +74,12 @@ const Rice = ({ rice }) => {
                     )
                 })}
             </div>
+            {foodModal && selectItem &&
+                <div>
+                    <FoodModal handleDeleteItem={handleDeleteItem} addToCart={addToCart} selectItem={selectItem}  />
+                    <div onClick={() => { dispatch(foodReducer(false)) ;setSelectItem(null) }} className="bg-black/50 top-0 bottom-0 right-0 left-0 z-40 fixed"></div>
+                </div>
+            }
         </div>
     );
 }

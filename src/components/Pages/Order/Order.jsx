@@ -1,9 +1,9 @@
 import Scroll from "./ScrollSpy";
 
-const Order = () => {
+const Order = ({discount}) => {
     return (
         <div>   
-            <Scroll />
+            <Scroll discount={discount}/>
         </div>
     );
 }

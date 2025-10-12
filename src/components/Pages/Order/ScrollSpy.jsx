@@ -6,7 +6,7 @@ import KababRice from "./KababRice";
 import Salad from "./Salad";
 import Beverage from "./Beverage";
 
-const discount = 10 ;
+
 
 const kabab = [
     {
@@ -222,7 +222,7 @@ const beverage = [
     }
 ]
 
-const Scroll = () => {
+const Scroll = ({discount}) => {
    
 
     function scrollTo(id) {

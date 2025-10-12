@@ -1,23 +1,30 @@
 import { GoShareAndroid } from "react-icons/go";
 import { HiOutlineMinus, HiOutlinePlus } from "react-icons/hi2";
 import { CartContext } from "../../context/CartContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import FoodModal from "../../Modal/FoodModal";
+import { foodReducer } from "../../../redux/FoodModal/FoodModal";
+import { useDispatch, useSelector } from "react-redux";
 
 
-const Salad = ({ salad }) => {
+const Salad = ({ salad  }) => {
     const { cart, setCart } = useContext(CartContext);
-    function addToCart(item){
+    const { foodModal } = useSelector(state => state.foodModal);
+    const dispatch = useDispatch();
+    const [selectItem, setSelectItem] = useState(null);
+
+    function addToCart(item) {
         setCart((prev) => [...prev, item])
-        const getCartItems =JSON.parse(localStorage.getItem("cartItems")) || [] ;
-        localStorage.setItem("cartItems" , JSON.stringify([...getCartItems , item]));
+        const getCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+        localStorage.setItem("cartItems", JSON.stringify([...getCartItems, item]));
     }
-    function handleDeleteItem(id){
-        let newCart =JSON.parse(localStorage.getItem("cartItems")) || []
-        const findItem = newCart.findIndex((item)=>{
-            return item.id==id
+    function handleDeleteItem(id) {
+        let newCart = JSON.parse(localStorage.getItem("cartItems")) || []
+        const findItem = newCart.findIndex((item) => {
+            return item.id == id
         });
-        newCart.splice(findItem , 1);
-        localStorage.setItem("cartItems" , JSON.stringify(newCart));
+        newCart.splice(findItem, 1);
+        localStorage.setItem("cartItems", JSON.stringify(newCart));
         setCart(newCart);
     }
     return (
@@ -34,7 +41,7 @@ const Salad = ({ salad }) => {
                         return i.id == item.id;
                     })
                     return (
-                        <div key={item.id} className="border shadow">
+                        <div onClick={()=>{dispatch(foodReducer(true)) ; setSelectItem(item)}} key={item.id} className="border shadow">
                             <div>
                                 <img className="object-cover w-full" src={`${item.imageUrl}`} alt="" />
                             </div>
@@ -65,6 +72,12 @@ const Salad = ({ salad }) => {
                     )
                 })}
             </div>
+            {foodModal && selectItem &&
+                <div>
+                    <FoodModal handleDeleteItem={handleDeleteItem} addToCart={addToCart} selectItem={selectItem} />
+                    <div onClick={() => { dispatch(foodReducer(false)) ; setSelectItem(null) }} className="bg-black/50 top-0 bottom-0 right-0 left-0 z-40 fixed"></div>
+                </div>
+            }
         </div>
     );
 }

@@ -31,7 +31,7 @@ const Branch = () => {
                 </div>
             </div>
 
-            <div className={`${branch=="open" ? "translate-y-0" : "top-[10000px] scale-0"} fixed z-30 transition-all duration-300 md:w-96 md:h-96 md:rounded-lg md:top-1/2 md:right-1/2 md:translate-x-1/2 shadow-md md:-translate-y-1/2 top-0 bottom-0 right-0 left-0 bg-white`}>
+            <div className={`${branch=="open" ? "translate-y-0" : "top-[10000px] scale-0"} fixed z-50 transition-all duration-300 md:w-96 md:h-96 md:rounded-lg md:top-1/2 md:right-1/2 md:translate-x-1/2 shadow-md md:-translate-y-1/2 top-0 bottom-0 right-0 left-0 bg-white`}>
                 <div className="flex items-center justify-between gap-4 border-b py-4 px-8">
                     <h2 className="text-lg font-semibold text-center">لطفا مجموعه موردنظر را انتخاب کنید</h2>
                     <button onClick={() => { dispatch(showBranch("close")) }}>
@@ -45,7 +45,7 @@ const Branch = () => {
                 </div>
             </div>
 
-            {branch == "open" && <div onClick={() => { dispatch(showBranch("close")) }} className="bg-black/50 z-20 absolute h-screen top-0 bottom-0 right-0 left-0"></div>}
+            {branch == "open" && <div onClick={() => { dispatch(showBranch("close")) }} className="bg-black/50 z-40 absolute h-screen top-0 bottom-0 right-0 left-0"></div>}
         </div>
     );
 }

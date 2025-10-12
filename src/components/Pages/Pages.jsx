@@ -3,6 +3,8 @@ import Info from "./Info";
 import { useState } from "react";
 import Cart from "../Cart/Cart";
 
+const discount = 10 ;
+
 const MainPage = () => {
     const [ menu , setMenu ]=useState(1);
     return (
@@ -17,11 +19,11 @@ const MainPage = () => {
                     </span>
                 </div>
                 <div>
-                    {menu==1 ? <Order /> : <Info /> }
+                    {menu==1 ? <Order discount={discount}/> : <Info /> }
                 </div>
             </div>
             <div className="lg:col-span-4">
-                <Cart />
+                <Cart discount={discount}/>
             </div>
         </div>
     );

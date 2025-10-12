@@ -6,7 +6,7 @@ import { HiOutlineMinus, HiOutlinePlus } from "react-icons/hi2";
 
 import { CartContext } from "../context/CartContext";
 
-const Cart = () => {
+const Cart = ({discount}) => {
     const { cart, setCart } = useContext(CartContext);
     const [showCart, setShowCart] = useState(false);
     const [totalPrice, setTotalPrice] = useState(null);
@@ -16,7 +16,6 @@ const Cart = () => {
         const uniqItem =cart.filter((item , index , self)=>{
            return index == self.findIndex(f=>f.id==item.id) 
         })
-        
         setUniq(uniqItem)
     }, [cart])
 
@@ -30,7 +29,7 @@ const Cart = () => {
             const totalPrice = cart.reduce((acc, curr) => {
                 return acc + Number(curr.price)
             }, 0)
-            const formated = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            const formated = (totalPrice*(1- discount/100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
             setTotalPrice(formated)
         }
     }, [cart])
@@ -62,7 +61,7 @@ const Cart = () => {
                         </div>
                     </div>
                     :
-                    <div className={`${showCart ? " lg:translate-x-0" : "-translate-x-72 lg:translate-x-0"} transition-all duration-200 items-center flex-col px-1 lg:px-0 md:flex flex z-20 fixed top-0 left-0 w-72 lg:w-full bottom-0 bg-white lg:static`}>
+                    <div className={`${showCart ? " lg:translate-x-0" : "-translate-x-72 lg:translate-x-0"} transition-all duration-200 items-center flex-col px-1 lg:px-0 md:flex flex z-30 fixed top-0 left-0 w-72 lg:w-full bottom-0 bg-white lg:static`}>
                         <div className="border-b flex items-center justify-between w-full">
                             <h2 className="w-full text-lg font-bold p-2">سبد خرید ( {cart.length})</h2>
                             <span onClick={() => { handleDeleteCartItems() }} className="pl-2 cursor-pointer">
@@ -110,7 +109,7 @@ const Cart = () => {
                 }
             </div>
 
-            {showCart && <div onClick={() => { setShowCart(false) }} className="bg-black/50 fixed top-0 bottom-0 left-0 right-0 z-10 lg:hidden"></div>}
+            {showCart && <div onClick={() => { setShowCart(false) }} className="bg-black/50 fixed top-0 bottom-0 left-0 right-0 z-20 lg:hidden"></div>}
             {cart.length != 0 && <div onClick={() => { setShowCart(true) }} className={`${showCart ? "translate-y-16" : "translate-y-0"} transition-all duration-200 cursor-pointer z-20 lg:hidden flex items-center justify-between bg-yellow-500 px-4 fixed bottom-0 right-0 left-0`}>
                 <div className="flex items-center gap-2">
                     <PiShoppingCartLight size={24} />

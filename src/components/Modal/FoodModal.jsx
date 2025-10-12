@@ -3,10 +3,52 @@ import { TfiClose } from "react-icons/tfi";
 import { useDispatch, useSelector } from "react-redux";
 import { foodReducer } from "../../redux/FoodModal/FoodModal";
 import { HiOutlineMinus, HiOutlinePlus } from "react-icons/hi2";
-import { useState } from "react";
-const FoodModal = ({ selectItem, discount, handleDeleteItem, addToCart }) => {
-    const [numOfFood, setNumOfFood] = useState([])
+import { use, useContext, useEffect, useState } from "react";
+import { CartContext } from "../context/CartContext";
+const FoodModal = ({ selectItem, setSelectItem, discount, handleDeleteItem, addToCart }) => {
+    // console.log(selectItem)
+    const { cart, setCart } = useContext(CartContext);
+    const [addItem, setAddItem] = useState([])
+    const [totalPrice, setTotalPrice] = useState(0);
     const dispatch = useDispatch();
+    useEffect(() => {
+        const getCartItem = JSON.parse(localStorage.getItem('cartItems')) || []
+        const filteredItem = getCartItem.filter((f) => {
+            return f.id == selectItem.id;
+        })
+        setAddItem(filteredItem)
+    }, [])
+
+    useEffect(() => {
+        const totalPrice = addItem.reduce((acc, curr) => {
+            return acc + Number(curr.price)
+        }, 0)
+        if (discount) {
+            const formated = (totalPrice * (1 - discount / 100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            setTotalPrice(formated)
+        }else{
+            setTotalPrice(totalPrice)
+        }
+    }, [addItem])
+
+    function addToLocalStorage(id) {
+        const getCartItem = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const filterCartItem = getCartItem.filter(f => f.id != id)
+        const newCartItem = [...filterCartItem, ...addItem]
+        localStorage.setItem('cartItems', JSON.stringify(newCartItem))
+        dispatch(foodReducer(false))
+        setCart(newCartItem)
+    }
+
+    function deleteOneItem(id) {
+        const index = addItem.findIndex(f => f.id == id)
+        let newAddItem = [...addItem]
+        if (index != -1) {
+            newAddItem.splice(index, 1)
+        }
+
+        setAddItem(newAddItem)
+    }
 
     return (
         <div>
@@ -16,40 +58,40 @@ const FoodModal = ({ selectItem, discount, handleDeleteItem, addToCart }) => {
                         <span className="bg-gray-100 rounded-full w-10 h-8 cursor-pointer">
                             <GoShareAndroid size={20} color="gray" />
                         </span>
-                        <button onClick={() => { dispatch(foodReducer(false)) }}>
+                        <button onClick={() => { dispatch(foodReducer(false)); setSelectItem(null) }}>
                             <TfiClose size={24} />
                         </button>
                     </div>
                     <div className="max-h-[400px]">
                         <div>
                             <div className="relative">
-                                <img className="object-cover w-full" src={`${selectItem.imageUrl}`} alt="" />
-                                <p className="absolute flex justify-center items-center top-4 left-4 bg-yellow-500 h-8 w-8 rounded-md text-sm p-0">% {discount}</p>
+                                <img className="object-cover w-full" src={`${selectItem?.imageUrl}`} alt="" />
+                                {discount && <p className="absolute flex justify-center items-center top-4 left-4 bg-yellow-500 h-8 w-8 rounded-md text-sm p-0">% {discount}</p>}
                             </div>
                         </div>
                         <div className="py-8">
-                            <p className="font-bold text-xl p-2 px-4">{selectItem.title}</p>
+                            <p className="font-bold text-xl p-2 px-4">{selectItem?.title}</p>
                             <div className="flex gap-4 px-4">
-                                <p className="line-through text-gray-500 text-sm">{selectItem.price} تومان</p>
-                                <p>{(selectItem.price) * (1 - discount / 100)} تومان</p>
+                                <p className={`${discount ? "line-through text-gray-500 text-sm" : " text-black text-base"} `}>{selectItem?.price} تومان</p>
+                                {discount && <p>{(selectItem?.price) * (1 - discount / 100)} تومان</p>}
                             </div>
-                            <p className="md:w-[470px] px-4 mt-4 text-gray-500">{selectItem.description}</p>
+                            <p className="md:w-[470px] px-4 mt-4 text-gray-500">{selectItem?.description}</p>
                         </div>
                     </div>
                 </div>
                 <div className="flex items-center my-4 justify-between px-4 border-t pt-4">
                     <div>
-                        <button>
-                            <span>افزودن به سبد خرید { } تومان</span>
+                        <button className="bg-yellow-500 px-4 rounded-md">
+                            <span onClick={() => { addToLocalStorage(selectItem.id) }}>افزودن به سبد خرید {totalPrice}  تومان</span>
                         </button>
                     </div>
                     <div>
                         <div className="flex items-center gap-2">
-                            <button onClick={() => { handleDeleteItem(selectItem.id) }} className="border border-yellow-500 p-1.5 rounded-md text-xl bg-yellow-500 transition-all duration-100">
+                            <button onClick={() => { deleteOneItem(selectItem.id) }} className="border border-yellow-500 p-1.5 rounded-md text-xl bg-yellow-500 transition-all duration-100">
                                 <HiOutlineMinus />
                             </button>
-                            <span>{numOfFood.length}</span>
-                            <button onClick={() => { addToCart(item) }} className="border border-yellow-500 p-1.5 rounded-md text-xl bg-yellow-500 transition-all duration-100">
+                            <span>{addItem.length}</span>
+                            <button onClick={() => { setAddItem((prev) => [...prev, selectItem]) }} className="border border-yellow-500 p-1.5 rounded-md text-xl bg-yellow-500 transition-all duration-100">
                                 <HiOutlinePlus />
                             </button>
                         </div>

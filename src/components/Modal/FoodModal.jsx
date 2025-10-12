@@ -6,7 +6,7 @@ import { HiOutlineMinus, HiOutlinePlus } from "react-icons/hi2";
 import { use, useContext, useEffect, useState } from "react";
 import { CartContext } from "../context/CartContext";
 const FoodModal = ({ selectItem, setSelectItem, discount, handleDeleteItem, addToCart }) => {
-    // console.log(selectItem)
+    console.log(selectItem)
     const { cart, setCart } = useContext(CartContext);
     const [addItem, setAddItem] = useState([])
     const [totalPrice, setTotalPrice] = useState(0);

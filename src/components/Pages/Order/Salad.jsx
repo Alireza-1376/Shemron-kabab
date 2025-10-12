@@ -74,7 +74,7 @@ const Salad = ({ salad  }) => {
             </div>
             {foodModal && selectItem &&
                 <div>
-                    <FoodModal handleDeleteItem={handleDeleteItem} addToCart={addToCart} selectItem={selectItem} />
+                    <FoodModal handleDeleteItem={handleDeleteItem} addToCart={addToCart} setSelectItem={setSelectItem} selectItem={selectItem} />
                     <div onClick={() => { dispatch(foodReducer(false)) ; setSelectItem(null) }} className="bg-black/50 top-0 bottom-0 right-0 left-0 z-40 fixed"></div>
                 </div>
             }

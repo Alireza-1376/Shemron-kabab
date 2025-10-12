@@ -89,7 +89,7 @@ const Kabab = ({ kabab, discount }) => {
             </div>
             {foodModal && selectItem &&
                 <div>
-                    <FoodModal handleDeleteItem={handleDeleteItem} addToCart={addToCart} selectItem={selectItem} discount={discount}/>
+                    <FoodModal handleDeleteItem={handleDeleteItem} setSelectItem={setSelectItem} addToCart={addToCart} selectItem={selectItem} discount={discount}/>
                     <div onClick={() => { dispatch(foodReducer(false)) ;setSelectItem(null) }} className="bg-black/50 top-0 bottom-0 right-0 left-0 z-40 fixed"></div>
                 </div>
             }

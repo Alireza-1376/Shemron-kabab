@@ -27,7 +27,8 @@ const FoodModal = ({ selectItem, setSelectItem, discount, handleDeleteItem, addT
             const formated = (totalPrice * (1 - discount / 100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
             setTotalPrice(formated)
         }else{
-            setTotalPrice(totalPrice)
+            const formated = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            setTotalPrice(formated)
         }
     }, [addItem])
 
@@ -81,7 +82,7 @@ const FoodModal = ({ selectItem, setSelectItem, discount, handleDeleteItem, addT
                 </div>
                 <div className="flex items-center my-4 justify-between px-4 border-t pt-4">
                     <div>
-                        <button className="bg-yellow-500 px-4 rounded-md">
+                        <button className="bg-yellow-500 md:px-4 px-2 text-sm md:text-base rounded-md">
                             <span onClick={() => { addToLocalStorage(selectItem.id) }}>افزودن به سبد خرید {totalPrice}  تومان</span>
                         </button>
                     </div>

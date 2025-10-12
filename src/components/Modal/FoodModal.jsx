@@ -39,6 +39,7 @@ const FoodModal = ({ selectItem, setSelectItem, discount, handleDeleteItem, addT
         localStorage.setItem('cartItems', JSON.stringify(newCartItem))
         dispatch(foodReducer(false))
         setCart(newCartItem)
+        setSelectItem(null)
     }
 
     function deleteOneItem(id) {

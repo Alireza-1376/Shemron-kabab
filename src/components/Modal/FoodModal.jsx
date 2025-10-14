@@ -6,7 +6,6 @@ import { HiOutlineMinus, HiOutlinePlus } from "react-icons/hi2";
 import { use, useContext, useEffect, useState } from "react";
 import { CartContext } from "../context/CartContext";
 const FoodModal = ({ selectItem, setSelectItem, discount, handleDeleteItem, addToCart }) => {
-    console.log(selectItem)
     const { cart, setCart } = useContext(CartContext);
     const [addItem, setAddItem] = useState([])
     const [totalPrice, setTotalPrice] = useState(0);
@@ -26,7 +25,7 @@ const FoodModal = ({ selectItem, setSelectItem, discount, handleDeleteItem, addT
         if (discount) {
             const formated = (totalPrice * (1 - discount / 100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
             setTotalPrice(formated)
-        }else{
+        } else {
             const formated = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
             setTotalPrice(formated)
         }
@@ -64,24 +63,56 @@ const FoodModal = ({ selectItem, setSelectItem, discount, handleDeleteItem, addT
                             <TfiClose size={24} />
                         </button>
                     </div>
-                    <div className="max-h-[400px]">
+                    <div className={`${selectItem.items ? "overflow-auto max-h-[640px]" : ""} max-h-[400px]`}>
                         <div>
                             <div className="relative">
                                 <img className="object-cover w-full" src={`${selectItem?.imageUrl}`} alt="" />
                                 {discount && <p className="absolute flex justify-center items-center top-4 left-4 bg-yellow-500 h-8 w-8 rounded-md text-sm p-0">% {discount}</p>}
                             </div>
                         </div>
-                        <div className="py-8">
-                            <p className="font-bold text-xl p-2 px-4">{selectItem?.title}</p>
-                            <div className="flex gap-4 px-4">
-                                <p className={`${discount ? "line-through text-gray-500 text-sm" : " text-black text-base"} `}>{selectItem?.price} تومان</p>
-                                {discount && <p>{(selectItem?.price) * (1 - discount / 100)} تومان</p>}
+                        {selectItem.items ?
+                            <div className="flex flex-col gap-4 px-4 my-2">
+                                {selectItem.items.map((i) => {
+                                    const formated = i.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                                    const id = cart.filter((f) => {
+                                        return f.id == i.id;
+                                    })
+                                    return (
+                                        <div key={i.id} className="border p-2 ">
+                                            <h2>{i.title}</h2>
+                                            <div className="flex justify-between items-center">
+                                                <p>{formated}</p>
+                                                {id.length > 0 ?
+                                                    <div className="flex items-center gap-2">
+                                                        <button onClick={(e) => { handleDeleteItem(i.id); e.stopPropagation() }} className="border border-yellow-500 p-1.5 rounded-md text-xl bg-yellow-500 transition-all duration-100">
+                                                            <HiOutlineMinus />
+                                                        </button>
+                                                        <span>{id.length}</span>
+                                                        <button onClick={(e) => { addToCart(i); e.stopPropagation() }} className="border border-yellow-500 p-1.5 rounded-md text-xl bg-yellow-500 transition-all duration-100">
+                                                            <HiOutlinePlus />
+                                                        </button>
+                                                    </div>
+                                                    :
+                                                    <button onClick={(e) => { addToCart(i); e.stopPropagation() }} className="border border-yellow-500 p-1.5 rounded-md text-xl hover:bg-yellow-500 transition-all duration-100">
+                                                        <HiOutlinePlus />
+                                                    </button>
+                                                }
+                                            </div>
+                                        </div>
+                                    )
+                                })}
                             </div>
-                            <p className="md:w-[470px] px-4 mt-4 text-gray-500">{selectItem?.description}</p>
-                        </div>
+                            : <div className="py-8">
+                                <p className="font-bold text-xl p-2 px-4">{selectItem?.title}</p>
+                                <div className="flex gap-4 px-4">
+                                    <p className={`${discount ? "line-through text-gray-500 text-sm" : " text-black text-base"} `}>{selectItem?.price} تومان</p>
+                                    {discount && <p>{(selectItem?.price) * (1 - discount / 100)} تومان</p>}
+                                </div>
+                                <p className="md:w-[470px] px-4 mt-4 text-gray-500">{selectItem?.description}</p>
+                            </div>}
                     </div>
                 </div>
-                <div className="flex items-center my-4 justify-between px-4 border-t pt-4">
+                {!selectItem.items && <div className="flex items-center my-4 justify-between px-4 border-t pt-4">
                     <div>
                         <button className="bg-yellow-500 md:px-4 px-2 text-sm md:text-base rounded-md">
                             <span onClick={() => { addToLocalStorage(selectItem.id) }}>افزودن به سبد خرید {totalPrice}  تومان</span>
@@ -98,7 +129,7 @@ const FoodModal = ({ selectItem, setSelectItem, discount, handleDeleteItem, addT
                             </button>
                         </div>
                     </div>
-                </div>
+                </div>}
             </div>
         </div>
     );

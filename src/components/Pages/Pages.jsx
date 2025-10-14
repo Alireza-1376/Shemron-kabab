@@ -22,7 +22,7 @@ const MainPage = () => {
                     {menu==1 ? <Order discount={discount}/> : <Info /> }
                 </div>
             </div>
-            <div className="lg:col-span-4">
+            <div className={`${menu==2 ? "lg:block hidden w-full" : ""} lg:col-span-4`}>
                 <Cart discount={discount}/>
             </div>
         </div>

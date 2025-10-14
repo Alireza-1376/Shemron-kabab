@@ -53,7 +53,7 @@ const Cart = ({discount}) => {
         <>
             <div className={` border overflow-hidden mt-4 rounded-md ml-4 lg:sticky lg:top-4`}>
                 {cart.length == 0 ?
-                    <div className={`${showCart ? " lg:translate-x-0" : "-translate-x-72 lg:translate-x-0"} transition-all duration-200 items-center flex-col px-1 lg:px-0 flex fixed z-20 top-0 left-0 w-72 lg:w-full bottom-0 bg-white lg:static`}>
+                    <div className={`${showCart ? " lg:translate-x-0" : "-translate-x-72 lg:translate-x-0"} transition-all duration-200 items-center flex-col px-1 lg:px-0 flex fixed z-30 top-0 left-0 w-72 lg:w-full bottom-0 bg-white lg:static`}>
                         <h2 className="border-b w-full text-lg font-bold p-2">سبد خرید</h2>
                         <div className="flex flex-col items-center py-10 gap-4">
                             <img src="/images/cart.png" alt="" />

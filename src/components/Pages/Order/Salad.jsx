@@ -53,16 +53,16 @@ const Salad = ({ salad  }) => {
                                 <div>
                                     {id.length > 0 ?
                                         <div className="flex items-center gap-2">
-                                            <button onClick={() => { handleDeleteItem(item.id) }} className="border border-yellow-500 p-1.5 rounded-md text-xl bg-yellow-500 transition-all duration-100">
+                                            <button onClick={(e) => { e.stopPropagation();handleDeleteItem(item.id) }} className="border border-yellow-500 p-1.5 rounded-md text-xl bg-yellow-500 transition-all duration-100">
                                                 <HiOutlineMinus />
                                             </button>
                                             <span>{id.length}</span>
-                                            <button onClick={() => { addToCart(item) }} className="border border-yellow-500 p-1.5 rounded-md text-xl bg-yellow-500 transition-all duration-100">
+                                            <button onClick={(e) => { e.stopPropagation() ;addToCart(item) }} className="border border-yellow-500 p-1.5 rounded-md text-xl bg-yellow-500 transition-all duration-100">
                                                 <HiOutlinePlus />
                                             </button>
                                         </div>
                                         :
-                                        <button onClick={() => { addToCart(item) }} className="border border-yellow-500 p-1.5 rounded-md text-xl hover:bg-yellow-500 transition-all duration-100">
+                                        <button onClick={(e) => {e.stopPropagation() ;addToCart(item) }} className="border border-yellow-500 p-1.5 rounded-md text-xl hover:bg-yellow-500 transition-all duration-100">
                                             <HiOutlinePlus />
                                         </button>
                                     }

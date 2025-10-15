@@ -5,10 +5,11 @@ import Rice from "./Rice";
 import KababRice from "./KababRice";
 import Salad from "./Salad";
 import Beverage from "./Beverage";
+import { useState } from "react";
 
 
 
-const kabab = [
+const kababItems = [
     {
         id: 1,
         imageUrl: "/images/kabab/1.jpg",
@@ -73,7 +74,7 @@ const kabab = [
         price: "50000"
     },
 ]
-const rice = [
+const riceItems = [
     {
         id: 10,
         imageUrl: "/images/rice/1.jpg",
@@ -82,7 +83,7 @@ const rice = [
         price: "300000"
     },
 ]
-const kababrice = [
+const kababriceItems = [
     {
         id: 11,
         imageUrl: "/images/kababrice/1.jpg",
@@ -140,7 +141,7 @@ const kababrice = [
         price: "832500"
     }
 ]
-const salad = [
+const saladItems = [
     {
         id: 19,
         imageUrl: "/images/salad/1.jpg",
@@ -184,7 +185,7 @@ const salad = [
         price: "110000"
     }
 ]
-const beverage = [
+const beverageItems = [
     {
         id: 25,
         imageUrl: "/images/beverage/1.jpg",
@@ -267,7 +268,43 @@ const beverage = [
 ]
 
 const Scroll = ({ discount }) => {
+    const [kabab , setKabab] =useState([]);
+    const [rice , setRice] =useState([]);
+    const [kababrice , setKababrice] =useState([]);
+    const [salad , setSalad] =useState([]);
+    const [beverage , setBeverage] =useState([]);
 
+    
+    function handleSearchItem(e){
+        const filterKababItems =kababItems.filter((f)=>{
+            return f.title.trim().includes(e.trim())
+        })
+        const filterRiceItems =riceItems.filter((f)=>{
+            return f.title.trim().includes(e.trim())
+        })
+        const filterkababriceItems =kababriceItems.filter((f)=>{
+            return f.title.trim().includes(e.trim())
+        })
+        const filtersaladItems =saladItems.filter((f)=>{
+            return f.title.trim().includes(e.trim())
+        })
+        const filterbeverageItems =beverageItems.filter((f)=>{
+            return f.title.trim().includes(e.trim())
+        })
+        setKabab(filterKababItems)
+        setRice(filterRiceItems)
+        setKababrice(filterkababriceItems)
+        setSalad(filtersaladItems)
+        setBeverage(filterbeverageItems)
+    }
+
+    useState(()=>{
+        setKabab(kababItems)
+        setRice(riceItems)
+        setKababrice(kababriceItems)
+        setSalad(saladItems)
+        setBeverage(beverageItems)
+    },[])
 
     function scrollTo(id) {
         const element = document.getElementById(id)
@@ -275,7 +312,6 @@ const Scroll = ({ discount }) => {
             element.scrollIntoView({ behavior: "smooth" })
         }
     }
-
 
     return (
         <div>
@@ -305,22 +341,22 @@ const Scroll = ({ discount }) => {
                     </ul>
                 </nav>
             </ScrollSpy>
-            <SearchItem />
+            <SearchItem handleSearchItem={handleSearchItem}/>
             <div>
                 <section className="scroll-mt-[110px] md:scroll-mt-[116px]" id="target-1">
-                    <Kabab kabab={kabab} discount={discount} />
+                    {kabab.length > 0 && <Kabab kabab={kabab} discount={discount} />}
                 </section>
                 <section className="scroll-mt-24 md:scroll-mt-28" id="target-2">
-                    <Rice rice={rice} discount={discount} />
+                    {rice.length > 0 && <Rice rice={rice} discount={discount} />}
                 </section>
                 <section className="scroll-mt-24 md:scroll-mt-28" id="target-3">
-                    <KababRice kababrice={kababrice} discount={discount} />
+                    {kababrice.length >0 && <KababRice kababrice={kababrice} discount={discount} />}
                 </section>
                 <section className=" scroll-mt-24 md:scroll-mt-28" id="target-4">
-                    <Salad salad={salad} discount={discount} />
+                    {salad.length > 0 && <Salad salad={salad} discount={discount} />}
                 </section>
                 <section className="scroll-mt-24 md:scroll-mt-28 " id="target-5">
-                    <Beverage beverage={beverage} discount={discount} />
+                    {beverage.length > 0 && <Beverage beverage={beverage} discount={discount} />}
                 </section>
             </div>
         </div>

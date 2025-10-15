@@ -40,6 +40,7 @@ const Salad = ({ salad  }) => {
                     const id = cart.filter((i) => {
                         return i.id == item.id;
                     })
+                    const formated = item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                     return (
                         <div onClick={()=>{dispatch(foodReducer(true)) ; setSelectItem(item)}} key={item.id} className="border shadow">
                             <div>
@@ -48,7 +49,7 @@ const Salad = ({ salad  }) => {
                             <div className="flex justify-between items-end p-4">
                                 <div>
                                     <p className="font-bold mb-2">{item.title}</p>
-                                    <p>{item.price} تومان</p>
+                                    <p>{formated} تومان</p>
                                 </div>
                                 <div>
                                     {id.length > 0 ?

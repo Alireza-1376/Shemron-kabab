@@ -42,6 +42,7 @@ const KababRice = ({ kababrice, discount }) => {
                     const id = cart.filter((i) => {
                         return i.id == item.id;
                     })
+                    const formated = item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                     return (
                         <div onClick={()=>{dispatch(foodReducer(true)) ; setSelectItem(item)}} onMouseLeave={() => { setShowDesc(null) }} onMouseEnter={() => { setShowDesc(item.id) }} key={item.id} className="border shadow">
                             <div className="relative">
@@ -56,8 +57,8 @@ const KababRice = ({ kababrice, discount }) => {
                                 <div>
                                     <p className="font-bold mb-2">{item.title}</p>
                                     <p className="text-xs md:hidden">{item.description}</p>
-                                    <p className="line-through text-gray-500 text-sm">{item.price} تومان</p>
-                                    <p>{(item.price) * (1 - discount / 100)} تومان</p>
+                                    <p className="line-through text-gray-500 text-sm">{formated} تومان</p>
+                                    <p>{((item.price) * (1 - discount / 100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} تومان</p>
                                 </div>
                                 <div>
                                     {id.length > 0 ?

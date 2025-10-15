@@ -10,6 +10,7 @@ const Cart = ({discount}) => {
     const { cart, setCart } = useContext(CartContext);
     const [showCart, setShowCart] = useState(false);
     const [totalPrice, setTotalPrice] = useState(null);
+    const [discountPrice , setDiscountPrice] = useState(null)
     const [uniq, setUniq] = useState();
 
     useEffect(() => {
@@ -29,8 +30,8 @@ const Cart = ({discount}) => {
             const totalPrice = cart.reduce((acc, curr) => {
                 return acc + Number(curr.price)
             }, 0)
-            const formated = (totalPrice*(1- discount/100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-            setTotalPrice(formated)
+            setTotalPrice(totalPrice)
+            setDiscountPrice(totalPrice * (discount /100))
         }
     }, [cart])
 
@@ -73,12 +74,13 @@ const Cart = ({discount}) => {
                                 const id = cart.filter((f)=>{
                                     return f.id==item.id
                                 })
-                        
+                                const formated = item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                                
                                 return (
                                     <div key={item.id} className="flex items-center justify-between w-full p-2 border-b">
                                         <div className="flex flex-col gap-1">
                                             <p className="font-bold">{item.title}</p>
-                                            <p>{item.price} تومان</p>
+                                            <p>{formated} تومان</p>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <button onClick={() => { handleDeleteItem(item.id) }} className="border border-yellow-500 p-1.5 rounded-md text-xl hover:bg-yellow-500 transition-all duration-100">
@@ -94,9 +96,13 @@ const Cart = ({discount}) => {
                             })}
                         </div>
                         <div className="w-full">
+                            <div className="flex justify-between items-center w-full p-2 ">
+                                <p> تخفیف :</p>
+                                <p>{discountPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
+                            </div>
                             <div className="flex justify-between items-center w-full p-2 font-bold">
                                 <p>هزینه کل :</p>
-                                <p>{totalPrice}</p>
+                                <p>{((totalPrice)*(1-discount/100))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
                             </div>
                             <div className="mt-8">
                                 <span className="text-yellow-400 font-bold text-lg cursor-pointer">کد تخفیف دارید ؟</span>

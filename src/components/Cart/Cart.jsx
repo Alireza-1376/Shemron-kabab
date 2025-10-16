@@ -98,11 +98,11 @@ const Cart = ({discount}) => {
                         <div className="w-full">
                             <div className="flex justify-between items-center w-full p-2 ">
                                 <p> تخفیف :</p>
-                                <p>{discountPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
+                                <p>{discountPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} تومان</p>
                             </div>
                             <div className="flex justify-between items-center w-full p-2 font-bold">
                                 <p>هزینه کل :</p>
-                                <p>{((totalPrice)*(1-discount/100))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
+                                <p> {((totalPrice)*(1-discount/100))?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} تومان </p>
                             </div>
                             <div className="mt-8">
                                 <span className="text-yellow-400 font-bold text-lg cursor-pointer">کد تخفیف دارید ؟</span>
